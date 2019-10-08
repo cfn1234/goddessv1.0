@@ -4,5 +4,4 @@ target
 .git
 .idea/
 *.iml
-goddess-pom/goddess-pom.iml
-*.iml
+
