@@ -6,7 +6,11 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
+<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+=======
+    <orderEntry type="inheritedJdk" />
+>>>>>>> 2517e7acd099e5b5a0dd4137354ce616523215a0
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

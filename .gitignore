@@ -2,7 +2,7 @@ target
 
 .idea
 .git
-*.iml
 .idea/
-
+*.iml
+goddess-pom/goddess-pom.iml
 *.iml
