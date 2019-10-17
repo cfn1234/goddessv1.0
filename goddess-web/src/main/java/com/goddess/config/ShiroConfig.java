@@ -1,12 +1,16 @@
 package com.goddess.config;
 
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -18,56 +22,80 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
-	//创建ShiroFilterFactoryBean
-	@Bean(name="shiroFilterFactoryBean")
-	public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager defaultWebSecurityManager){
+	private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
+
+	/**
+	 * 注入自定义的 Realm
+	 *
+	 * @return MyRealm
+	 */
+	@Bean
+	public UserRealm myAuthRealm() {
+		UserRealm myRealm = new UserRealm();
+		logger.info("====UserRealm注册完成=====");
+		return myRealm;
+	}
+
+	/**
+	 * 注入安全管理器
+	 *
+	 * @return SecurityManager
+	 */
+	@Bean
+	public SecurityManager securityManager() {
+		// 将自定义 Realm 加进来
+		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager(myAuthRealm());
+		logger.info("====securityManager注册完成====");
+		return securityManager;
+	}
+
+	/**
+	 * 注入 Shiro 过滤器
+	 *
+	 * @param securityManager 安全管理器
+	 * @return ShiroFilterFactoryBean
+	 */
+	@Bean
+	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
+		// 定义 shiroFactoryBean
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-		//设置安全管理器
-		shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
 
-		//添加shiro内置过滤器
-        /*
-         * anon:表示可以匿名使用。
-           authc:表示需要认证(登录)才能使用，没有参数
-           roles：参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，当有多个参数时，例如admins/user/**=roles["admin,guest"],每个参数通过才算通过，相当于hasAllRoles()方法。
-           perms：参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，例如/admins/user/**=perms["user:add:*,user:modify:*"]，当有多个参数时必须每个参数都通过才通过，想当于isPermitedAll()方法。
-           rest：根据请求的方法，相当于/admins/user/**=perms[user:method] ,其中method为post，get，delete等。
-           port：当请求的url的端口不是8081是跳转到schemal://serverName:8081?queryString,其中schmal是协议http或https等，serverName是你访问的host,8081是url配置里port的端口，queryString是你访问的url里的？后面的参数。
-           authcBasic：没有参数表示httpBasic认证
-           ssl:表示安全的url请求，协议为https
-           user:当登入操作时不做检查
-         */
-		Map<String, String> fMap = new HashMap<String, String>();
-		//拦截页面
-		fMap.put("/one", "authc");
-		fMap.put("/two", "authc");
+		// 设置自定义的 securityManager
+		shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-
-		//拦截未授权
-		fMap.put("/one", "perms[user:one]");
-		fMap.put("/two", "perms[user:two]");
-		//被拦截返回登录页面
+		// 设置默认登录的 URL，身份认证失败会访问该 URL
 		shiroFilterFactoryBean.setLoginUrl("/login");
-		//授权拦截返回页面
-		shiroFilterFactoryBean.setUnauthorizedUrl("/permission");
-		shiroFilterFactoryBean.setFilterChainDefinitionMap(fMap);
+		// 设置成功之后要跳转的链接
+		shiroFilterFactoryBean.setSuccessUrl("/success");
+		// 设置未授权界面，权限认证失败会访问该 URL
+		shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
+
+		// LinkedHashMap 是有序的，进行顺序拦截器配置
+		Map<String, String> filterChainMap = new LinkedHashMap<>();
+
+		// 配置可以匿名访问的地址，可以根据实际情况自己添加，放行一些静态资源等，anon 表示放行
+		filterChainMap.put("/css/**", "anon");
+		filterChainMap.put("/imgs/**", "anon");
+		filterChainMap.put("/js/**", "anon");
+		filterChainMap.put("/swagger-*/**", "anon");
+		filterChainMap.put("/swagger-ui.html/**", "anon");
+		// 登录 URL 放行
+		filterChainMap.put("/login", "anon");
+
+		// 以“/user/admin” 开头的用户需要身份认证，authc 表示要进行身份认证
+		filterChainMap.put("/user/admin*", "authc");
+		// “/user/student” 开头的用户需要角色认证，是“admin”才允许
+		filterChainMap.put("/user/student*/**", "roles[admin]");
+		// “/user/teacher” 开头的用户需要权限认证，是“user:create”才允许
+		filterChainMap.put("/user/teacher*/**", "perms[\"user:create\"]");
+
+		// 配置 logout 过滤器
+		filterChainMap.put("/logout", "logout");
+
+		// 设置 shiroFilterFactoryBean 的 FilterChainDefinitionMap
+		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainMap);
+		logger.info("====shiroFilterFactoryBean注册完成====");
 		return shiroFilterFactoryBean;
-
 	}
-	@Bean(name="defaultWebSecurityManager")
-	//创建DefaultWebSecurityManager
-	public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm")UserRealm userRealm){
-		DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
-		defaultWebSecurityManager.setRealm(userRealm);
-		return defaultWebSecurityManager;
-
-	}
-
-	//创建Realm
-	@Bean(name="userRealm")
-	public UserRealm getUserRealm(){
-		return new UserRealm();
-	}
-
 
 }
