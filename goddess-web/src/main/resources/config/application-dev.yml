@@ -1,6 +1,10 @@
 server:
   port: 8080
 
+logging:
+  level:
+    com.goddess: DEBUG
+
 spring:
   datasource:
     druid:
@@ -65,3 +69,4 @@ spring:
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.example.entity
+

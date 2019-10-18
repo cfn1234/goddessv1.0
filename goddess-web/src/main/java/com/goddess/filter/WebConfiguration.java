@@ -11,6 +11,7 @@ import java.io.IOException;
 
 /**
  * <br>
+ *     过滤器功能
  * 〈功能详细描述〉
  * com.goddess.filter
  *
