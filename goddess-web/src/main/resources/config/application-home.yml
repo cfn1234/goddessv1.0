@@ -1,7 +1,5 @@
 server:
   port: 8080
-  tomcat:
-    uri-encoding: UTF-8
 
 logging:
   config: classpath:log4j2.xml
@@ -66,21 +64,8 @@ spring:
       filter:
         stat:
           log-slow-sql: true
-  mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    timeout: 3000
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.example.entity
-
-shiro:
-  web:
-    enabled: true
-  loginUrl: /login
 

@@ -12,30 +12,25 @@
 
     <!--先定义所有的appender-->
     <appenders>
-
         <!--这个输出控制台的配置-->
         <console name="Console" target="SYSTEM_OUT">
             <!--输出日志的格式-->
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
         </console>
 
-        <File name="log" fileName="${log.path}/test.log" append="false">
+       <!-- <File name="log" fileName="${log.path}/test.log" append="false">
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
         </File>
 
         <RollingFile name="RollingFileInfo" fileName="${log.path}/info.log"
                      filePattern="${log.path}/logs/${date:yyyy-MM}/info-%d{yyyy-MM-dd}.log.zip">
-
-            <!--只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            &lt;!&ndash;只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）&ndash;&gt;
             <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
-
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
-
             <Policies>
                 <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
             </Policies>
-
-        </RollingFile>
+        </RollingFile>-->
     </appenders>
 
     <!--然后定义logger，只有定义了logger并引入appender，appender才会生效-->
@@ -46,7 +41,7 @@
         <logger name="org.mybatis" level="DEBUG"/>-->
         <root level="DEBUG">
             <appender-ref ref="Console"/>
-            <appender-ref ref="RollingFileInfo"/>
+           <!-- <appender-ref ref="RollingFileInfo"/>-->
         </root>
 
     </loggers>

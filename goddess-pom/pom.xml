@@ -43,12 +43,6 @@
                 <version>1.1.10</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring</artifactId>
-                <version>1.4.0</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.elasticsearch.client</groupId>
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
                 <version>7.3.1</version>

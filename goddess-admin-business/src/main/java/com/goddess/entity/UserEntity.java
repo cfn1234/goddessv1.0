@@ -13,18 +13,22 @@ public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = -5440372534300871944L;
 
-    private Integer id;
+    private Integer userId;
 
     private String userName;
 
     private String password;
 
-    public Integer getId() {
-        return id;
+    private String fullName;
+
+    private String salt;
+
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -43,4 +47,19 @@ public class UserEntity implements Serializable {
         this.password = password;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 }

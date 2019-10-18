@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.goddess.config.RedisConfiguration,\
+com.goddess.config.shiro.ShiroConfig

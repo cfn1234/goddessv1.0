@@ -3,13 +3,15 @@
 <mapper namespace="com.goddess.mapper.UserMapper">
 
 <resultMap type="com.goddess.entity.UserEntity" id="User">
-   <id column="id" property="id" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
-   <id column="username" property="userName" javaType="java.lang.String" jdbcType="VARCHAR"/>
-   <id column="passwd" property="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
+   <id column="user_id" property="userId" javaType="java.lang.Integer" jdbcType="NUMERIC"/>
+   <id column="user_name" property="userName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+   <id column="password" property="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
+   <id column="full_name" property="fullName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+   <id column="salt" property="salt" javaType="java.lang.String" jdbcType="VARCHAR"/>
 </resultMap>
 
 <select id="findByUserName" resultMap="User">
-	select * from t_user where username = #{userName}
+	select * from sys_user where user_name = #{userName}
 </select>
 
 </mapper>

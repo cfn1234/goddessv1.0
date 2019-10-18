@@ -29,7 +29,7 @@ public class HelloWorldControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        mvc = MockMvcBuilders.standaloneSetup(new HelloWorldController()).build();
+        mvc = MockMvcBuilders.standaloneSetup(new LoginController()).build();
     }
 
     @Test
