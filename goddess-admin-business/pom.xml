@@ -48,5 +48,4 @@
             <artifactId>commons-logging</artifactId>
         </dependency>
     </dependencies>
-
 </project>

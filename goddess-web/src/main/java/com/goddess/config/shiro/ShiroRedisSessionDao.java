@@ -6,7 +6,6 @@ import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +26,6 @@ public class ShiroRedisSessionDao extends AbstractSessionDAO {
     private static final Logger logger = LoggerFactory.getLogger(ShiroRedisSessionDao.class);
 
     @Autowired
-    @Lazy
     private RedisTemplate redisTemplate;
 
     @Override

@@ -1,7 +1,9 @@
 server:
-  port: 8080
+  port: 8081
   tomcat:
     uri-encoding: UTF-8
+  servlet:
+    context-path: /goddess-web
 
 logging:
   config: classpath:log4j2.xml
@@ -71,7 +73,7 @@ spring:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
   redis:
-    host: 127.0.0.1
+    host: 192.168.3.86
     port: 6379
     timeout: 3000
 

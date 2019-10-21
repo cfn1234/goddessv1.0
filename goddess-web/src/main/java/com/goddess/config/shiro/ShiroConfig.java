@@ -4,6 +4,8 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
+import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -34,7 +36,7 @@ public class ShiroConfig {
      * @return SecurityManager
      */
     @Bean
-    public DefaultWebSecurityManager  securityManager(ShiroRedisSessionDao redisSessionDao) {
+    public DefaultWebSecurityManager securityManager(ShiroRedisSessionDao redisSessionDao) {
         // 将自定义 Realm 加进来
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager(myAuthRealm());
         securityManager.setSessionManager(sessionManager(redisSessionDao));
@@ -69,18 +71,12 @@ public class ShiroConfig {
         return userRealm;
     }
 
-    /**
-     * 注入 Shiro 过滤器
-     *
-     * @param securityManager 安全管理器
-     * @return ShiroFilterFactoryBean
-     */
-    @Bean
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
-        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-        shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        //注意此处使用的是LinkedHashMap，是有顺序的，shiro会按从上到下的顺序匹配验证，匹配了就不再继续验证
+
+    @Bean
+    public ShiroFilterChainDefinition shiroFilterChainDefinition() {
+        //不需要在此处配置权限页面,因为上面的ShiroFilterFactoryBean已经配置过,但是此处必须存在,因为shiro-spring-boot-web-starter或查找此Bean,没有会报错
+        DefaultShiroFilterChainDefinition d = new DefaultShiroFilterChainDefinition();
         //所以上面的url要苛刻，宽松的url要放在下面，尤其是"/**"要放到最下面，如果放前面的话其后的验证规则就没作用了。
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/static/**", "anon");
@@ -89,13 +85,13 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/favicon.ico", "anon");
 
         filterChainDefinitionMap.put("/**", "authc");
-
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        return shiroFilterFactoryBean;
+        d.addPathDefinitions(filterChainDefinitionMap);
+        return d;
     }
 
     /**
      * 配置sessionmanager，由redis存储数据
+     *
      * @return
      */
     @Bean
@@ -106,6 +102,8 @@ public class ShiroConfig {
         sessionManager.setDeleteInvalidSessions(true);
         SimpleCookie cookie = new SimpleCookie();
         cookie.setName("starrkCookie");
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
         sessionManager.setSessionIdCookie(cookie);
         sessionManager.setSessionIdCookieEnabled(true);
         return sessionManager;
