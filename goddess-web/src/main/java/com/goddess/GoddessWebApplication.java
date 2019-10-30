@@ -15,15 +15,15 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * @since [产品/模块版本] （可选）
  */
 @SpringBootApplication
-public class GoddApplication extends SpringBootServletInitializer {
+public class GoddessWebApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(GoddApplication.class);
+        return application.sources(GoddessWebApplication.class);
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(GoddApplication.class, args);
+        SpringApplication.run(GoddessWebApplication.class, args);
     }
 
 
