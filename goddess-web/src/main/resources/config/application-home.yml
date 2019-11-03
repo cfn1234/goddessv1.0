@@ -8,7 +8,7 @@ spring:
   datasource:
     druid:
       # 数据库访问配置, 使用druid数据源
-      url: jdbc:mysql://192.168.3.86:3306/shiroTest?characterEncoding=utf-8
+      url: jdbc:mysql://192.168.1.102:3306/shiroTest?characterEncoding=utf-8
       driver-class-name: com.mysql.jdbc.Driver
       type: com.alibaba.druid.pool.DruidDataSource
       username: root
@@ -35,8 +35,6 @@ spring:
       filters: stat,wall
       # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
       aop-patterns: com.springboot.servie.*
-
-
       # WebStatFilter配置
       web-stat-filter:
         enabled: true
@@ -44,7 +42,6 @@ spring:
         url-pattern: /*
         # 忽略过滤的格式
         exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
-
       # StatViewServlet配置
       stat-view-servlet:
         enabled: true
@@ -64,8 +61,21 @@ spring:
       filter:
         stat:
           log-slow-sql: true
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  redis:
+    host: 192.168.1.102
+    port: 6379
+    timeout: 3000
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.example.entity
+
+shiro:
+  web:
+    enabled: true
+  loginUrl: /login
 
