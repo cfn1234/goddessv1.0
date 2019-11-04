@@ -43,20 +43,6 @@ public class ShiroConfig {
     }
 
     /**
-     * 凭证匹配器
-     *
-     * @return
-     */
-    @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        //md5加密1次
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");
-        hashedCredentialsMatcher.setHashIterations(1);
-        return hashedCredentialsMatcher;
-    }
-
-    /**
      * 注入自定义的 Realm
      *
      * @return MyRealm
@@ -69,8 +55,23 @@ public class ShiroConfig {
         return userRealm;
     }
 
+    /**
+     * 凭证匹配器
+     *
+     * @return HashedCredentialsMatcher
+     */
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        //md5加密1次
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        hashedCredentialsMatcher.setHashIterations(1);
+        return hashedCredentialsMatcher;
+    }
 
-
+    /**
+     * 设置拦截链
+     */
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition d = new DefaultShiroFilterChainDefinition();
