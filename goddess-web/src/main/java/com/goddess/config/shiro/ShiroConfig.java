@@ -50,6 +50,7 @@ public class ShiroConfig {
     @Bean
     public UserRealm myAuthRealm() {
         UserRealm userRealm = new UserRealm();
+        //密码加密
         userRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         logger.info("====UserRealm注册完成=====");
         return userRealm;

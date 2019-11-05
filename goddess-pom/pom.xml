@@ -25,6 +25,7 @@
     <properties>
         <java.version>1.8</java.version>
         <mysql.version>5.1.6</mysql.version>
+        <elasticSearch.verison>7.3.1</elasticSearch.verison>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -46,14 +47,13 @@
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
-                <version>7.3.1</version>
+                <version>${elasticSearch.verison}</version>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>1.2</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 

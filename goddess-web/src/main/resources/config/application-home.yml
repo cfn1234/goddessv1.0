@@ -1,5 +1,9 @@
 server:
-  port: 8080
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /goddess-web
 
 logging:
   config: classpath:log4j2.xml
