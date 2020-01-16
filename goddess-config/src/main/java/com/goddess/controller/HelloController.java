@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class HelloController {
-    @Value("${neo.hello}")
+    @Value("${wy.ba}")
     private String nickName;
 
     @RequestMapping("/hello")

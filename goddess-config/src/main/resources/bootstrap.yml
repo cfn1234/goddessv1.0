@@ -4,16 +4,18 @@ spring:
 
 ---
 spring:
+  profiles: dev
   application:
     name: client
   cloud:
     config:
       uri: http://localhost:8001/
-      name: neo-config   #文件前缀名称
+      name: wyms,neo-config   #文件前缀名称
       profile: dev            # 服务环境名称  例如 {name}-{profile} = service-gateway-dev.yml,
 
 ---
 spring:
+  profiles: pro
   application:
     name: client
   cloud:
