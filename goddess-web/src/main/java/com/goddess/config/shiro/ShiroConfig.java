@@ -81,6 +81,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/captcha.jpg", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");
+        filterChainDefinitionMap.put("/mongdb/**", "anon");
 
         filterChainDefinitionMap.put("/**", "authc");
         d.addPathDefinitions(filterChainDefinitionMap);

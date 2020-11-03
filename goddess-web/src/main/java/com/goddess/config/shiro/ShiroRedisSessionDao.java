@@ -32,7 +32,7 @@ public class ShiroRedisSessionDao extends AbstractSessionDAO {
     protected Serializable doCreate(Session session) {
         Serializable sessionId = generateSessionId(session);
         assignSessionId(session, sessionId);
-        logger.info("创建seesion,id=[{}]", session.getId().toString());
+        logger.debug("创建seesion,id=[{}]", session.getId().toString());
         try {
             redisTemplate.opsForValue().set(session.getId().toString(), session, 30, TimeUnit.MINUTES);
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class ShiroRedisSessionDao extends AbstractSessionDAO {
 
     @Override
     protected Session doReadSession(Serializable serializable) {
-        logger.info("获取seesion,id=[{}]", serializable.toString());
+        logger.debug("获取seesion,id=[{}]", serializable.toString());
         Session readSession = null;
         try {
             readSession = (Session) redisTemplate.opsForValue().get(serializable.toString());
@@ -56,7 +56,7 @@ public class ShiroRedisSessionDao extends AbstractSessionDAO {
 
     @Override
     public void update(Session session) throws UnknownSessionException {
-        logger.info("更新seesion,id=[{}]", session.getId().toString());
+        logger.debug("更新seesion,id=[{}]", session.getId().toString());
         try {
             redisTemplate.opsForValue().set(session.getId().toString(), session, 30, TimeUnit.MINUTES);
         } catch (Exception e) {
@@ -66,7 +66,7 @@ public class ShiroRedisSessionDao extends AbstractSessionDAO {
 
     @Override
     public void delete(Session session) {
-        logger.info("删除seesion,id=[{}]", session.getId().toString());
+        logger.debug("删除seesion,id=[{}]", session.getId().toString());
         try {
             String key = session.getId().toString();
             redisTemplate.delete(key);
@@ -77,7 +77,7 @@ public class ShiroRedisSessionDao extends AbstractSessionDAO {
 
     @Override
     public Collection<Session> getActiveSessions() {
-        logger.info("获取存活的session");
+        logger.debug("获取存活的session");
         return Collections.emptySet();
     }
 }

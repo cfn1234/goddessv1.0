@@ -12,11 +12,11 @@ spring:
   datasource:
     druid:
       # 数据库访问配置, 使用druid数据源
-      url: jdbc:mysql://127.0.0.1:3306/shiroTest?characterEncoding=utf-8
+      url: jdbc:mysql://192.168.1.102:3306/shiroTest?characterEncoding=utf-8
       driver-class-name: com.mysql.jdbc.Driver
       type: com.alibaba.druid.pool.DruidDataSource
       username: root
-      password: root
+      password: 123456
       # 连接池配置
       initial-size: 5
       min-idle: 5
@@ -39,8 +39,6 @@ spring:
       filters: stat,wall
       # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
       aop-patterns: com.springboot.servie.*
-
-
       # WebStatFilter配置
       web-stat-filter:
         enabled: true
@@ -48,7 +46,6 @@ spring:
         url-pattern: /*
         # 忽略过滤的格式
         exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
-
       # StatViewServlet配置
       stat-view-servlet:
         enabled: true
@@ -73,17 +70,9 @@ spring:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
   redis:
-    host: 127.0.0.1
+    host: 192.168.1.102
     port: 6379
     timeout: 3000
-    password: root
-  data:
-    mongodb:
-      host: 127.0.0.1   #同127.0.0.1
-      port: 27017
-      username: test
-      password: 123456
-      database: test
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml

@@ -26,6 +26,7 @@
         <java.version>1.8</java.version>
         <mysql.version>5.1.6</mysql.version>
         <elasticSearch.verison>7.3.1</elasticSearch.verison>
+        <lombok.version>1.16.20</lombok.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -53,6 +54,11 @@
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

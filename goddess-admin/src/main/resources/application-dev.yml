@@ -1,0 +1,15 @@
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /goddess-admin
+minio:
+  endpoint: 'http://127.0.0.1:9000'
+  accessKey: 'minio'
+  secretKey: 'minio123'
+  bucketPrefix: 'dev'
+
+
+
+
