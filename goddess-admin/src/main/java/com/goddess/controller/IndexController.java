@@ -1,14 +1,14 @@
 package com.goddess.controller;
 
-import com.jiayi.minio.minio.MinioService;
-import lombok.SneakyThrows;
+import com.goddess.config.jwt.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * com.goddess.controller
@@ -20,5 +20,24 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("index")
 public class IndexController {
 
+	@Autowired
+	@Qualifier("jwtUserDetailsService")
+	private UserDetailsService userDetailsService;
 
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+
+	@PostMapping("/login")
+	public String login(String username){
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+		final String token = jwtTokenUtil.generateToken(userDetails);
+		return token;
+	}
+
+	@PostMapping("haha")
+	public String haha(){
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return "haha:"+userDetails.getUsername()+","+userDetails.getPassword();
+	}
 }
+

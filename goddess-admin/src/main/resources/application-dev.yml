@@ -9,7 +9,10 @@ minio:
   accessKey: 'minio'
   secretKey: 'minio123456'
   bucketPrefix: 'dev'
-
+jwt:
+  secret: secret
+  expiration: 7200000
+  token: Authorization
 
 
 
