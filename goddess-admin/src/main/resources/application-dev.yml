@@ -7,7 +7,7 @@ server:
 minio:
   endpoint: 'http://127.0.0.1:9000'
   accessKey: 'minio'
-  secretKey: 'minio123'
+  secretKey: 'minio123456'
   bucketPrefix: 'dev'
 
 

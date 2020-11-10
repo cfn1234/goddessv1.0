@@ -20,24 +20,5 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("index")
 public class IndexController {
 
-    @Autowired
-    private MinioService minioService;
 
-    @SneakyThrows
-    @GetMapping("get")
-    public String index(HttpServletRequest request,String a) {
-        minioService.bucketExists("1111");
-        Cookie[] cookies = request.getCookies();
-        for (Cookie c : cookies) {
-
-            System.out.println( c.getValue());
-        }
-        request.getSession().setAttribute("cc",a);
-        return "1";
-    }
-    @GetMapping("getSession")
-    public String getSession(HttpServletRequest request){
-
-        return (String) request.getSession().getAttribute("cc");
-    }
 }

@@ -12,6 +12,7 @@
 
     <groupId>com.goddess</groupId>
     <artifactId>goddess-pom</artifactId>
+    <name>goddess</name>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
