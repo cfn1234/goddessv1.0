@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * @author: cfn
  * @date: 2020/11/10 11:09
- * @description:
+ * @description: 没有凭证拦截返回
  */
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
