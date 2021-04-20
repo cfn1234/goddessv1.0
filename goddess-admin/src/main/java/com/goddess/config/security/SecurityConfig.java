@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.authorizeRequests()
 				.antMatchers("/index/login").permitAll()
-				.antMatchers("/haha").permitAll()
+				.antMatchers("/index/haha").permitAll()
 				.antMatchers("/sysUser/test").permitAll()
 				.antMatchers(HttpMethod.OPTIONS, "/**").anonymous()
 				.anyRequest().authenticated()       // 剩下所有的验证都需要验证

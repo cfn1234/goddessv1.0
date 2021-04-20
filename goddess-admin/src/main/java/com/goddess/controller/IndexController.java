@@ -1,11 +1,13 @@
 package com.goddess.controller;
 
 import com.goddess.config.jwt.JwtTokenUtil;
+import com.goddess.eneity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +37,7 @@ public class IndexController {
 	}
 
 	@PostMapping("haha")
-	public String haha(){
+	public String haha(@Validated User user){
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return "haha:"+userDetails.getUsername()+","+userDetails.getPassword();
 	}
