@@ -22,6 +22,7 @@
         <module>../goddess-service</module>
         <module>../goddess-admin-business</module>
         <module>../goddess-config</module>
+        <module>../goddess-websocket</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
